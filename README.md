@@ -59,9 +59,8 @@ To get a local copy up and running, follow these simple steps:
 
 1.  **Clone the repository:**
     ```sh
-    git clone <your-repository-url> 
+    git clone https://github.com/alexbond008/calculator-android.git
     ```
-    *(Replace `<your-repository-url>` with the actual URL if you host this on GitHub, GitLab, etc.)*
 2.  **Open the project in Android Studio:**
     *   In Android Studio, select "Open an Existing Project".
     *   Navigate to the cloned directory and select it.
@@ -85,8 +84,3 @@ The calculator operates based on a unidirectional data flow principle:
 *   The logic for handling decimal points, preventing multiple operations from being entered consecutively, and clearing/deleting input is all managed within the `CalculatorViewModel`.
 
 ---
-
-This README provides a solid foundation. You can further enhance it with:
-*   A "Contributing" section if you plan for others to contribute.
-*   A "License" section (e.g., MIT, Apache 2.0).
-*   More detailed explanations of complex logic if necessary.
