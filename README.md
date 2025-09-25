@@ -70,15 +70,43 @@ To get a local copy up and running, follow these simple steps:
 
 ## How It Works
 
-The calculator operates based on a unidirectional data flow principle:
+The calculator operates based on a unidirectional data flow principle, characteristic of MVVM-like architectures in Jetpack Compose, as illustrated below:
 
-1.  **User Interaction:** The user taps a button on the `Calculator` UI (defined in `Calculator.kt`).
-2.  **Action Triggered:** The `onClick` lambda for the `CalculatorButton` calls the `onAction` function (which is a reference to `viewModel::onAction`) in the `CalculatorViewModel`, passing a specific `CalculatorAction` (e.g., `CalculatorAction.Number(5)`, `CalculatorAction.Operation(CalculatorOperation.Add)`).
-3.  **ViewModel Logic:** The `CalculatorViewModel` receives the action. Its `onAction` method uses a `when` statement to determine the type of action and calls the appropriate private function (e.g., `enterNumber()`, `enterOperation()`, `performCalculation()`). These functions update the `state` property of the ViewModel.
-4.  **State Update:** The `state` property in `CalculatorViewModel` is a `MutableState<CalculatorState>` (`mutableStateOf`). When its value (an instance of `CalculatorState`) is replaced with a new one (e.g., via `state = state.copy(...)`), Jetpack Compose is notified of the change.
-5.  **UI Re-renders:** The `Calculator` composable function in `Calculator.kt` observes this `state`. When the state changes, Compose intelligently recomposes only the parts of the UI that depend on the changed state, ensuring the display (like the `Text` view showing numbers and operations) and button appearances are updated.
+<p align="center">
+  <img src="app/assets/img.png" alt="Calculator Architecture Diagram" width="600"/>
+</p>
 
-*   The `MAX_NUM_LENGTH` constant in `CalculatorViewModel` limits the length of numbers that can be entered.
-*   The logic for handling decimal points, preventing multiple operations from being entered consecutively, and clearing/deleting input is all managed within the `CalculatorViewModel`.
+Here's a breakdown of the flow:
+
+1.  **User Interaction (UI):**
+    *   The user taps a button on the `Calculator` UI (defined in `Calculator.kt` and `CalculatorButton.kt`).
+    *   This interaction triggers an `onClick` lambda.
+
+2.  **Calculator Action Dispatched:**
+    *   The `onClick` lambda calls the `onAction` function (which is a reference to `viewModel::onAction`) passed to the `Calculator` composable.
+    *   A specific `CalculatorAction` is sent to the ViewModel (e.g., `CalculatorAction.Number(5)`, `CalculatorAction.Operation(CalculatorOperation.Add)`). This represents the user's intent.
+
+3.  **Calculator Logic (in `CalculatorViewModel.kt`):**
+    *   The `CalculatorViewModel` receives the `CalculatorAction` in its `onAction` method.
+    *   A `when` statement determines the type of action and calls the appropriate private function within the ViewModel (e.g., `enterNumber()`, `enterOperation()`, `performCalculation()`).
+    *   These functions contain the core business logic of the calculator.
+
+4.  **Updates State (`CalculatorState.kt`):**
+    *   The logic functions within the `CalculatorViewModel` modify the `state` property.
+    *   The `state` property is a `MutableState<CalculatorState>` (created using `mutableStateOf`).
+    *   When its value (an instance of `CalculatorState`) is updated (typically by creating a new state object via `state.copy(...)`), Jetpack Compose is notified of the change because `MutableState` is observable.
+
+5.  **Calculator State:**
+    *   This is the single source of truth for the UI. It holds all the data needed to display the calculator screen (e.g., `number1`, `number2`, `operation`).
+
+6.  **Recomposes UI:**
+    *   The `Calculator` composable function in `Calculator.kt` observes this `state`.
+    *   When the `CalculatorState` changes, Jetpack Compose intelligently recomposes (re-renders) only the parts of the UI that depend on the changed state values. This ensures the display (like the `Text` view showing numbers and operations) and button appearances are updated to reflect the new state.
+
+*Key points managed by `CalculatorViewModel` logic:*
+*   The `MAX_NUM_LENGTH` constant limits the length of numbers that can be entered.
+*   Handling of decimal points.
+*   Preventing multiple operations from being entered consecutively.
+*   Clearing and deleting input.
 
 ---
