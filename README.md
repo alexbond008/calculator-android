@@ -11,11 +11,8 @@ A simple yet functional calculator application built for Android using Kotlin an
 *   **Responsive UI:** Adapts to different screen orientations.
 *   **Clear Display:** Shows the current numbers and operation being entered.
 
-## Screenshots
-
-*(Placeholder: Add a screenshot or GIF of the app in action here. For example:)*
-<!-- ![Calculator Screenshot](app/src/main/res/drawable/screenshot.png) -->
-<!-- You can add a screenshot to a drawable folder and reference it like the example above -->
+## Demo
+![Calculator Demo](app/assets/1000071832.mp4)
 
 ## Tech Stack & Architecture
 
