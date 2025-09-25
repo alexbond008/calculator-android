@@ -12,10 +12,9 @@ A simple yet functional calculator application built for Android using Kotlin an
 *   **Clear Display:** Shows the current numbers and operation being entered.
 
 ## Demo
-![Calculator Demo](app/assets/1000071832.mp4)
+![Calculator Demo](app/assets/demo.gif)
 
 ## Tech Stack & Architecture
-
 *   **Language:** [Kotlin](https://kotlinlang.org/)
 *   **UI Toolkit:** [Jetpack Compose](https://developer.android.com/jetpack/compose) for building a declarative UI.
 *   **Architecture:** Follows an MVVM-like pattern:
